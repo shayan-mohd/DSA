@@ -1,42 +1,25 @@
 public class Main {
     public static void main(String[] args) {
         System.out.println("Hello world!");
-
-        // [4,5,6,7,0,1,2]
-        int low  = 0;
-        int high = 6;
-        int mid  = 3;
-
-        int target = 1;
-
-        // low - mid - > 4567
-        // mid - high -> 7012
-
-        int[] nums = new int[]{4,5,6,7,0,1,2,3};
-        System.out.println(search(nums, 4));
+        System.out.println(firstMissingPositive(new int[]{1,2,0}));
     }
 
-    public static int search(int[] nums, int target) {
-        int low = 0, high = nums.length - 1;
+    public static int firstMissingPositive(int[] nums) {
+        int[] arr = new int[10000];
 
-        while (low <= high) {
-            int mid = low + (high - low)/2;
-
-            if (nums[mid] == target) {
-                return mid;
-            }
-            else if (nums[low] <= nums[mid]) {
-                if (nums[low] <= target && nums[mid] >= target) {
-                    high = mid - 1;
-                }
-                else {
-                    low  = mid + 1;
-                }
-            }
-            else {
-                low = mid + 1;
+        for(int x : nums) {
+            if(x > 0){
+                arr[x] = 1;
             }
         }
-        return -1;
+        int ans = 0;
+
+        for(int i =1; i < arr.length; i++){
+            if(arr[i] == 0){
+                ans = i;
+                break;
+            }
+        }
+        return ans;
     }
 }
